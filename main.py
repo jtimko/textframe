@@ -19,19 +19,19 @@ def run_picture_frame():
 
     while True:
         picture.check_for_updates()
+        if picture.check[0] != picture.current[0]:
+            picture.current = picture.check
+            time.sleep(3)
+            picture.load_image()
+            picture.display_image()
 
         for event in pygame.event.get():
-            if picture.check[0] != picture.current[0]:
-                picture.current = picture.check
-                picture.load_image()
-                picture.display_image()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
 
 if __name__ == '__main__':
-    p = multiprocessing.Process(target=run_server)
-    p.start()
-    time.sleep(3)
+    # p = multiprocessing.Process(target=run_server)
+    # p.start()
     run_picture_frame()
 
